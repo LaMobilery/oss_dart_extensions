@@ -4,9 +4,25 @@ repository: https://github.com/LaMobilery/oss_dart_extensions
 packages:
   - packages/**
 
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
 scripts:
   create_extensions:
     name: create_extensions
     description: Create a new package for extensions for the class given as argument
     run: dart bin/create_extensions.dart
-      
+
+  analyze:
+    run: melos exec -- "dart analyze"
+    description: Run `dart analyze` in all packages
+  
+  format:
+    run: melos exec -- "dart format . --set-exit-if-changed"
+    description: Run `dart format .` in all packages  
+    
+  test:
+    # Only run the test command when the package has a test directory
+    run: melos exec --dir-exists=test -- "dart test"
+    description: Run `dart test` in all packages
